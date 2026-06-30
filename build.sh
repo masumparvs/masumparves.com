@@ -4,7 +4,13 @@
 set -e
 cd "$(dirname "$0")"
 
-SECTIONS="home about services capabilities method contact"
+SECTIONS="home about services expertise process contact"
+STALE="capabilities method"
+
+# remove folders from older designs that are no longer sections
+for s in $STALE; do
+  rm -rf "$s"
+done
 
 for s in $SECTIONS; do
   mkdir -p "$s"
