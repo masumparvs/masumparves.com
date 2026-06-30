@@ -1371,10 +1371,14 @@ section { padding: 96px 0; position: relative; }
     history.pushState(null, '', idToPath(id));
   });
 
-  /* Direct load of /services (etc.) -> jump to that section */
+  /* Direct load of /services/ (etc.) -> jump to that section and tidy the
+     address bar to the clean form (/services, no trailing slash). */
   window.addEventListener('load', function () {
     var id = pathToId(location.pathname);
-    if (id && id !== 'home') scrollToId(id, false);
+    if (!id) return;
+    if (id !== 'home') scrollToId(id, false);
+    var want = idToPath(id);
+    if (location.pathname !== want) history.replaceState(null, '', want);
   });
 
   /* Keep the address bar in sync with the section in view while scrolling */
