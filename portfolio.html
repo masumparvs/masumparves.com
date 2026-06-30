@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Md Masum Parves — Portfolio · Issue No. 02</title>
+<meta name="description" content="Md Masum Parves Rentu — Linux system administrator. Servers kept quiet. Sites kept up." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,500&family=JetBrains+Mono:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:     #f0e8d8;        /* warm cream — page */
+  --paper-2:   #e8dfcb;        /* slightly deeper for cards */
+  --paper-3:   #ddd2b9;        /* edges and borders */
+  --ink:       #1a1612;        /* deep warm black */
+  --ink-2:     #3a342c;        /* secondary text */
+  --muted:     #6b6258;        /* captions, meta */
+  --rule:      #b8ad94;        /* hairline rules */
+  --accent:    #a44a2a;        /* terracotta — the only color */
+  --accent-2:  #7e351c;        /* deeper terracotta */
+  --highlight: #d9c595;        /* subtle highlight tone */
+
+  --serif:     'Fraunces', 'EB Garamond', Georgia, serif;
+  --body:      'EB Garamond', 'Fraunces', Georgia, serif;
+  --mono:      'JetBrains Mono', ui-monospace, monospace;
+
+  --maxw: 1180px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 18px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Subtle paper texture using gradients */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(164,74,42,0.04) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(164,74,42,0.03) 0%, transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Noise overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.12 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: multiply;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ====== Magazine Masthead ====== */
+.masthead {
+  border-bottom: 1px solid var(--ink);
+  padding: 18px 0 14px;
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.masthead-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.masthead .center { color: var(--ink); font-weight: 500; }
+.masthead .nav-mag {
+  display: flex;
+  gap: 22px;
+}
+.masthead .nav-mag a { transition: color .2s ease; }
+.masthead .nav-mag a:hover { color: var(--accent); }
+
+/* ====== Cover (Hero) ====== */
+.cover {
+  border-bottom: 3px double var(--ink);
+  padding: 48px 0 56px;
+  position: relative;
+}
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 36px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 56px;
+}
+.kicker {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 24px;
+  padding: 4px 10px;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+}
+.cover-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(54px, 10vw, 152px);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  font-variation-settings: "opsz" 144;
+  color: var(--ink);
+  margin-bottom: 36px;
+  max-width: 1100px;
+}
+.cover-title em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+.cover-title .amp {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--accent);
+  font-size: 0.7em;
+  vertical-align: 0.05em;
+}
+
+.cover-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-top: 36px;
+}
+
+.lede {
+  font-family: var(--body);
+  font-size: 21px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 580px;
+}
+.lede::first-letter {
+  font-family: var(--serif);
+  font-size: 64px;
+  font-weight: 500;
+  float: left;
+  line-height: 0.85;
+  padding: 6px 10px 0 0;
+  color: var(--accent);
+  font-variation-settings: "opsz" 144;
+}
+
+.byline-card {
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding: 18px 0;
+}
+.byline-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+.byline-row:last-child { border-bottom: none; }
+.byline-row .k {
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.byline-row .v {
+  color: var(--ink);
+  font-weight: 500;
+}
+.byline-row .v.tint { color: var(--accent); }
+
+.cover-cta {
+  display: flex;
+  gap: 16px;
+  margin-top: 44px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  transition: all .25s ease;
+  border-radius: 2px;
+}
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.btn-ghost { color: var(--ink); }
+.btn-ghost:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* ====== Contents ====== */
+.contents {
+  padding: 64px 0 56px;
+  border-bottom: 1px solid var(--ink);
+}
+.contents-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.contents-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 6px;
+}
+.contents-label::before {
+  content: "§ ";
+  color: var(--accent);
+}
+.contents-list {
+  display: grid;
+  gap: 0;
+}
+.contents-item {
+  display: grid;
+  grid-template-columns: 80px 1fr 80px;
+  gap: 24px;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: 1px dotted var(--rule);
+  font-family: var(--serif);
+  transition: padding .25s ease, color .25s ease;
+}
+.contents-item:hover {
+  padding-left: 8px;
+  color: var(--accent);
+}
+.contents-item:last-child { border-bottom: none; }
+.contents-num {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+}
+.contents-title {
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.contents-page {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-align: right;
+  letter-spacing: 0.1em;
+}
+
+/* ====== Section base ====== */
+section { padding: 96px 0; position: relative; }
+.section-rule {
+  height: 1px;
+  background: var(--ink);
+  margin: 0;
+}
+.section-rule.double {
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  background: transparent;
+  height: 5px;
+}
+
+.section-head {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 60px;
+  margin-bottom: 64px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+}
+.section-eyebrow {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-top: 14px;
+}
+.section-eyebrow .accent { color: var(--accent); }
+.section-headline {
+  font-family: var(--serif);
+  font-size: clamp(38px, 5.5vw, 68px);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-variation-settings: "opsz" 144;
+  max-width: 880px;
+}
+.section-headline em { font-style: italic; color: var(--accent); }
+
+/* ====== About / Essay ====== */
+.essay-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.essay-sidebar {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.essay-sidebar .label { color: var(--accent); display: block; margin-bottom: 6px; }
+.essay-sidebar p { margin-bottom: 24px; color: var(--ink-2); }
+
+.essay-body {
+  font-family: var(--body);
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--ink);
+  max-width: 720px;
+  columns: 1;
+}
+.essay-body > p:first-of-type::first-letter {
+  font-family: var(--serif);
+  font-size: 92px;
+  font-weight: 500;
+  float: left;
+  line-height: 0.85;
+  padding: 8px 14px 4px 0;
+  color: var(--accent);
+  font-variation-settings: "opsz" 144;
+}
+.essay-body p { margin-bottom: 22px; }
+.essay-body p em { color: var(--accent-2); font-style: italic; }
+
+.pull-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 32px;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+  border-top: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  padding: 28px 0;
+  margin: 40px 0;
+  font-variation-settings: "opsz" 144;
+  font-weight: 400;
+}
+.pull-quote::before {
+  content: "“";
+  display: block;
+  font-size: 80px;
+  line-height: 0.4;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+/* ====== Services / Departments ====== */
+.dept-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--ink);
+}
+.dept {
+  padding: 40px 0;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.dept:nth-child(odd) {
+  padding-right: 40px;
+  border-right: 1px solid var(--rule);
+}
+.dept:nth-child(even) {
+  padding-left: 40px;
+}
+.dept:nth-last-child(-n+2) { border-bottom: none; }
+
+.dept-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  border-top: 2px solid var(--accent);
+  padding-top: 6px;
+}
+
+.dept-content h3 {
+  font-family: var(--serif);
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+.dept-content h3 em { font-style: italic; color: var(--accent); }
+
+.dept-content .tagline {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+.dept-content p {
+  font-size: 16.5px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.dept-tags {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.dept-tag {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border: 1px solid var(--rule);
+  color: var(--ink-2);
+  border-radius: 2px;
+}
+
+/* ====== Tech band (rolling ticker) ====== */
+.tech-band {
+  padding: 22px 0;
+  border-top: 3px double var(--ink);
+  border-bottom: 3px double var(--ink);
+  overflow: hidden;
+  background: var(--paper-2);
+}
+.marquee {
+  display: flex;
+  overflow: hidden;
+  gap: 0;
+  mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, black 8%, black 92%, transparent);
+}
+.marquee-track {
+  display: flex;
+  gap: 0;
+  animation: scroll 50s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+.tech-item {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--ink);
+  white-space: nowrap;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-weight: 400;
+}
+.tech-item::after {
+  content: "✦";
+  color: var(--accent);
+  font-size: 14px;
+  font-style: normal;
+}
+
+/* ====== Capabilities ====== */
+.cap-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 48px;
+}
+.cap-col h4 {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--accent);
+}
+.cap-col h4::before { content: "§ "; }
+
+.cap-list {
+  list-style: none;
+}
+.cap-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px dotted var(--rule);
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 400;
+}
+.cap-list li:last-child { border-bottom: none; }
+.cap-list li em {
+  font-style: italic;
+  color: var(--accent);
+  font-size: 16px;
+}
+.cap-list li .yr {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+/* ====== Process / Method ====== */
+.method-list {
+  display: grid;
+  gap: 0;
+  counter-reset: chapter;
+}
+.method-step {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 60px;
+  align-items: start;
+  padding: 44px 0;
+  border-bottom: 1px solid var(--rule);
+  position: relative;
+}
+.method-step:last-child { border-bottom: none; }
+
+.method-meta {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.method-meta .chapter {
+  display: block;
+  font-family: var(--serif);
+  font-size: 60px;
+  font-weight: 300;
+  color: var(--accent);
+  font-style: italic;
+  margin-bottom: 8px;
+  line-height: 1;
+  font-variation-settings: "opsz" 144;
+}
+
+.method-body h3 {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+.method-body h3 em { font-style: italic; color: var(--accent); }
+.method-body p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 600px;
+}
+
+/* ====== Correspondence (Contact) ====== */
+.corr {
+  padding: 120px 0 100px;
+  border-top: 3px double var(--ink);
+  position: relative;
+}
+.corr-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+}
+.corr-headline {
+  font-family: var(--serif);
+  font-size: clamp(56px, 9vw, 132px);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  margin-bottom: 32px;
+  font-variation-settings: "opsz" 144;
+  max-width: 1000px;
+}
+.corr-headline em { font-style: italic; color: var(--accent); font-weight: 400; }
+
+.corr-intro {
+  font-family: var(--body);
+  font-size: 21px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 580px;
+  margin-bottom: 56px;
+}
+
+.corr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+.corr-item {
+  display: grid;
+  grid-template-columns: 36px 1fr 28px;
+  gap: 22px;
+  align-items: center;
+  padding: 30px 36px 30px 24px;
+  border-bottom: 1px solid var(--rule);
+  transition: background .25s ease, padding .25s ease;
+}
+.corr-item:nth-child(odd) { border-right: 1px solid var(--rule); }
+.corr-item:nth-last-child(-n+2) { border-bottom: none; }
+.corr-item:hover {
+  background: var(--paper-2);
+  padding-left: 36px;
+}
+.corr-icon {
+  width: 28px; height: 28px;
+  color: var(--accent);
+}
+.corr-label {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.corr-handle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--ink);
+}
+.corr-arrow {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--ink);
+  transition: all .25s ease;
+}
+.corr-item:hover .corr-arrow {
+  color: var(--accent);
+  transform: translate(4px, -4px);
+}
+
+/* ====== Colophon (Footer) ====== */
+.colophon {
+  padding: 50px 0 70px;
+  border-top: 1px solid var(--ink);
+  background: var(--paper);
+}
+.colophon-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.colophon-brand {
+  font-family: var(--serif);
+  font-size: 28px;
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+}
+.colophon-brand .accent { color: var(--accent); }
+.colophon-tagline {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.colophon h5 {
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+.colophon ul {
+  list-style: none;
+  font-family: var(--serif);
+  font-size: 16px;
+  font-style: italic;
+}
+.colophon ul li {
+  padding: 4px 0;
+  color: var(--ink-2);
+}
+.colophon ul li a:hover { color: var(--accent); }
+
+.colophon-bottom {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.colophon-bottom .accent { color: var(--accent); }
+
+/* ====== Responsive ====== */
+@media (max-width: 960px) {
+  .cover-grid       { grid-template-columns: 1fr; gap: 40px; }
+  .essay-grid       { grid-template-columns: 1fr; gap: 32px; }
+  .contents-grid    { grid-template-columns: 1fr; gap: 32px; }
+  .section-head     { grid-template-columns: 1fr; gap: 16px; }
+  .dept-grid        { grid-template-columns: 1fr; border-top: 1px solid var(--ink); }
+  .dept             { padding: 32px 0 !important; border-right: none !important; }
+  .dept:nth-last-child(2) { border-bottom: 1px solid var(--rule); }
+  .cap-grid         { grid-template-columns: 1fr; gap: 32px; }
+  .method-step      { grid-template-columns: 1fr; gap: 16px; }
+  .corr-grid        { grid-template-columns: 1fr; }
+  .corr-item:nth-child(odd) { border-right: none; }
+  .colophon-grid    { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+@media (max-width: 640px) {
+  .container { padding: 0 22px; }
+  body { font-size: 16px; }
+  .masthead-inner { padding: 0 22px; flex-wrap: wrap; gap: 8px; font-size: 10px; }
+  .masthead .nav-mag { display: none; }
+  section { padding: 64px 0; }
+  .cover { padding: 32px 0 40px; }
+  .cover-top { font-size: 9.5px; padding-bottom: 24px; margin-bottom: 36px; flex-wrap: wrap; gap: 8px; }
+  .lede { font-size: 18px; }
+  .lede::first-letter { font-size: 52px; padding: 4px 8px 0 0; }
+  .essay-body { font-size: 17px; }
+  .essay-body > p:first-of-type::first-letter { font-size: 72px; }
+  .pull-quote { font-size: 24px; padding: 22px 0; }
+  .dept { grid-template-columns: 1fr; gap: 12px; }
+  .method-meta .chapter { font-size: 44px; }
+  .method-body h3 { font-size: 26px; }
+  .corr-item { padding: 22px 16px; grid-template-columns: 24px 1fr 22px; gap: 16px; }
+  .corr-handle { font-size: 20px; }
+  .colophon-grid { grid-template-columns: 1fr; }
+  .colophon-bottom { flex-direction: column; align-items: flex-start; }
+  .tech-item { font-size: 22px; padding: 0 18px; gap: 18px; }
+}
+
+/* Entrance animation */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.9s ease forwards;
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.25s; }
+.delay-3 { animation-delay: 0.4s; }
+.delay-4 { animation-delay: 0.55s; }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div>Vol. IV · No. 02</div>
+    <div class="center">— THE PARVES REGISTER —</div>
+    <nav class="nav-mag">
+      <a href="#about">Essay</a>
+      <a href="#services">Departments</a>
+      <a href="#capabilities">Stack</a>
+      <a href="#method">Method</a>
+      <a href="#contact">Letters</a>
+    </nav>
+  </div>
+</header>
+
+<!-- COVER / HERO -->
+<section class="cover">
+  <div class="container">
+
+    <div class="cover-top fade-up">
+      <span>Dhaka · Bangladesh</span>
+      <span>A Portfolio of Linux Systems Work</span>
+      <span>MMXXVI · Spring Edition</span>
+    </div>
+
+    <span class="kicker fade-up delay-1">Profile — Md Masum Parves Rentu</span>
+
+    <h1 class="cover-title fade-up delay-1">
+      The quiet art<br>
+      of keeping<br>
+      <em>servers</em> <span class="amp">&amp;</span> <em>sites</em><br>
+      up.
+    </h1>
+
+    <div class="cover-grid">
+      <p class="lede fade-up delay-2">
+        For over four years I have worked behind the curtain of the internet — hardening Linux servers, restoring compromised WordPress sites, configuring Nginx and Apache, and architecting cloud infrastructure for clients on three continents. This is a record of that work, and an invitation to begin yours.
+      </p>
+
+      <div class="byline-card fade-up delay-3">
+        <div class="byline-row"><span class="k">Status</span><span class="v tint">● Open to Commissions</span></div>
+        <div class="byline-row"><span class="k">Discipline</span><span class="v">Linux Sysadmin</span></div>
+        <div class="byline-row"><span class="k">Focus</span><span class="v">Security · Infra</span></div>
+        <div class="byline-row"><span class="k">Languages</span><span class="v">EN · BN</span></div>
+        <div class="byline-row"><span class="k">Response</span><span class="v">Within 24 hrs</span></div>
+      </div>
+    </div>
+
+    <div class="cover-cta fade-up delay-4">
+      <a href="#contact" class="btn btn-primary">Commission a project →</a>
+      <a href="#services" class="btn btn-ghost">View the work</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTENTS -->
+<section class="contents">
+  <div class="container">
+    <div class="contents-grid">
+      <div class="contents-label">Contents · This Issue</div>
+      <div class="contents-list">
+        <a href="#about" class="contents-item">
+          <span class="contents-num">No. 01</span>
+          <span class="contents-title">A Letter from the Console</span>
+          <span class="contents-page">P. 03</span>
+        </a>
+        <a href="#services" class="contents-item">
+          <span class="contents-num">No. 02</span>
+          <span class="contents-title">Departments of Work</span>
+          <span class="contents-page">P. 12</span>
+        </a>
+        <a href="#capabilities" class="contents-item">
+          <span class="contents-num">No. 03</span>
+          <span class="contents-title">An Index of Tools &amp; Tongues</span>
+          <span class="contents-page">P. 24</span>
+        </a>
+        <a href="#method" class="contents-item">
+          <span class="contents-num">No. 04</span>
+          <span class="contents-title">The Method — in Four Movements</span>
+          <span class="contents-page">P. 31</span>
+        </a>
+        <a href="#contact" class="contents-item">
+          <span class="contents-num">No. 05</span>
+          <span class="contents-title">Correspondence &amp; Letters</span>
+          <span class="contents-page">P. 42</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / ESSAY -->
+<section id="about">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow"><span class="accent">No. 01</span> · A Letter from the Console</div>
+      <h2 class="section-headline">An <em>introduction</em>, between a sysadmin and the reader.</h2>
+    </div>
+
+    <div class="essay-grid">
+      <aside class="essay-sidebar">
+        <div>
+          <span class="label">— By</span>
+          Md Masum Parves Rentu<br>
+          Sysadmin · Dhaka, BD
+        </div>
+        <div>
+          <span class="label">— Filed under</span>
+          Profile<br>
+          Working life<br>
+          Introduction
+        </div>
+        <div>
+          <span class="label">— Reading time</span>
+          Four minutes
+        </div>
+      </aside>
+
+      <div class="essay-body">
+        <p>I am Masum — a Linux system administrator working out of Dhaka, Bangladesh, on the kind of infrastructure most people never see. When I do my job well, you do not notice it. Servers stay up. Sites load. Backups quietly run at 3 a.m. and finish before anyone arrives in the morning.</p>
+
+        <p>I came to this work through curiosity and stayed through care. Through student years I led teams, I built things, I taught myself the shell. Today I split my time between shared-hosting environments where I help small businesses keep their WordPress sites safe, and longer engagements where I build out cloud infrastructure on <em>AWS</em>, <em>GCP</em>, and bare-metal VPS.</p>
+
+        <div class="pull-quote">
+          I would rather do one server properly than ten servers in a hurry.
+        </div>
+
+        <p>I am an extrovert by temperament — happiest in a team, but equally comfortable on a midnight call alone with a compromised box. I prefer read-only investigation before any destructive change. I write things down. I leave configs better than I found them. I treat your production environment the way I would want mine treated.</p>
+
+        <p>What follows in these pages is a record of the work I do — the services I offer, the tools I use, the way I approach a project. If any of it sounds like what you need, I would be glad to hear from you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEPARTMENTS / SERVICES -->
+<div class="section-rule double"></div>
+<section id="services">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow"><span class="accent">No. 02</span> · The Departments</div>
+      <h2 class="section-headline">Seven kinds of <em>quiet</em> work I do <em>well</em>.</h2>
+    </div>
+
+    <div class="dept-grid">
+      <article class="dept">
+        <span class="dept-num">№ 01</span>
+        <div class="dept-content">
+          <p class="tagline">— Information Security</p>
+          <h3>Server <em>hardening</em> &amp; defence.</h3>
+          <p>Locking servers down against brute-force attacks, configuring firewalls, deploying intrusion detection, removing malware, and tracing what got in.</p>
+          <div class="dept-tags">
+            <span class="dept-tag">UFW</span><span class="dept-tag">iptables</span>
+            <span class="dept-tag">Fail2ban</span><span class="dept-tag">ClamAV</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dept">
+        <span class="dept-num">№ 02</span>
+        <div class="dept-content">
+          <p class="tagline">— Cloud Management</p>
+          <h3>The <em>cloud</em>, made calm.</h3>
+          <p>Building, scaling, and tending infrastructure across AWS, GCP and DigitalOcean. EC2, S3, IAM, load balancers, and the bills that come with them.</p>
+          <div class="dept-tags">
+            <span class="dept-tag">AWS</span><span class="dept-tag">GCP</span>
+            <span class="dept-tag">DigitalOcean</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dept">
+        <span class="dept-num">№ 03</span>
+        <div class="dept-content">
+          <p class="tagline">— WordPress Design</p>
+          <h3>WordPress, <em>without</em> the headaches.</h3>
+          <p>Theme setup, plugin configuration, migrations between hosts, malware cleanup, performance tuning, and ongoing maintenance.</p>
+          <div class="dept-tags">
+            <span class="dept-tag">WP</span><span class="dept-tag">WooCommerce</span>
+            <span class="dept-tag">Elementor</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dept">
+        <span class="dept-num">№ 04</span>
+        <div class="dept-content">
+          <p class="tagline">— Backup &amp; Recovery</p>
+          <h3>The <em>safety net</em> beneath your data.</h3>
+          <p>Automated backups, off-site replication, disaster recovery planning, and the part most people forget — testing the restore actually works.</p>
+          <div class="dept-tags">
+            <span class="dept-tag">rsync</span><span class="dept-tag">Cron</span>
+            <span class="dept-tag">S3</span><span class="dept-tag">Restic</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dept">
+        <span class="dept-num">№ 05</span>
+        <div class="dept-content">
+          <p class="tagline">— IT Consulting</p>
+          <h3>Advice, <em>plainly</em> given.</h3>
+          <p>Infrastructure audits, server architecture reviews, vendor selection, and quiet second opinions for growing teams without a sysadmin on staff.</p>
+          <div class="dept-tags">
+            <span class="dept-tag">Audit</span><span class="dept-tag">Strategy</span>
+            <span class="dept-tag">Docs</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dept">
+        <span class="dept-num">№ 06</span>
+        <div class="dept-content">
+          <p class="tagline">— Computer Networking</p>
+          <h3>DNS, <em>proxies</em>, and pipes.</h3>
+          <p>DNS configuration, reverse proxies, SSL certificates, CDN integration, VPN tunneling and the careful art of routing traffic correctly.</p>
+          <div class="dept-tags">
+            <span class="dept-tag">Cloudflare</span><span class="dept-tag">Nginx</span>
+            <span class="dept-tag">DNS</span><span class="dept-tag">SSL</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dept">
+        <span class="dept-num">№ 07</span>
+        <div class="dept-content">
+          <p class="tagline">— Database Development</p>
+          <h3>Databases, <em>tuned</em> and tended.</h3>
+          <p>MySQL and MariaDB tuning, query optimization, replication setup, schema design, and migrations between hosts without dropping a row.</p>
+          <div class="dept-tags">
+            <span class="dept-tag">MySQL</span><span class="dept-tag">MariaDB</span>
+            <span class="dept-tag">PostgreSQL</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="dept">
+        <span class="dept-num">№ 08</span>
+        <div class="dept-content">
+          <p class="tagline">— Something Else?</p>
+          <h3>Tell me <em>what</em> you need.</h3>
+          <p>If it runs on Linux, lives in the cloud, or has gone quietly wrong in the middle of the night — there is a good chance I can help. Write to me.</p>
+          <div class="dept-tags">
+            <span class="dept-tag">Custom</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- TECH BAND -->
+<div class="tech-band">
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="tech-item">Ubuntu</span>
+      <span class="tech-item">Debian</span>
+      <span class="tech-item">CentOS</span>
+      <span class="tech-item">Nginx</span>
+      <span class="tech-item">Apache</span>
+      <span class="tech-item">LiteSpeed</span>
+      <span class="tech-item">AWS</span>
+      <span class="tech-item">GCP</span>
+      <span class="tech-item">DigitalOcean</span>
+      <span class="tech-item">Cloudflare</span>
+      <span class="tech-item">WordPress</span>
+      <span class="tech-item">Laravel</span>
+      <span class="tech-item">MySQL</span>
+      <span class="tech-item">MariaDB</span>
+      <span class="tech-item">Fail2ban</span>
+      <span class="tech-item">ClamAV</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span class="tech-item">Ubuntu</span>
+      <span class="tech-item">Debian</span>
+      <span class="tech-item">CentOS</span>
+      <span class="tech-item">Nginx</span>
+      <span class="tech-item">Apache</span>
+      <span class="tech-item">LiteSpeed</span>
+      <span class="tech-item">AWS</span>
+      <span class="tech-item">GCP</span>
+      <span class="tech-item">DigitalOcean</span>
+      <span class="tech-item">Cloudflare</span>
+      <span class="tech-item">WordPress</span>
+      <span class="tech-item">Laravel</span>
+      <span class="tech-item">MySQL</span>
+      <span class="tech-item">MariaDB</span>
+      <span class="tech-item">Fail2ban</span>
+      <span class="tech-item">ClamAV</span>
+    </div>
+  </div>
+</div>
+
+<!-- CAPABILITIES -->
+<section id="capabilities">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow"><span class="accent">No. 03</span> · The Stack</div>
+      <h2 class="section-headline">An <em>index</em> of tools, languages, &amp; tongues spoken on the command line.</h2>
+    </div>
+
+    <div class="cap-grid">
+      <div class="cap-col">
+        <h4>Operating Systems</h4>
+        <ul class="cap-list">
+          <li><span>Ubuntu Server <em>— preferred</em></span><span class="yr">since 2020</span></li>
+          <li>Debian<span class="yr">since 2020</span></li>
+          <li>CentOS / AlmaLinux<span class="yr">since 2021</span></li>
+          <li>RHEL<span class="yr">since 2022</span></li>
+        </ul>
+      </div>
+
+      <div class="cap-col">
+        <h4>Web Servers</h4>
+        <ul class="cap-list">
+          <li><span>Nginx <em>— daily</em></span><span class="yr">since 2020</span></li>
+          <li>Apache<span class="yr">since 2020</span></li>
+          <li>LiteSpeed / OpenLiteSpeed<span class="yr">since 2022</span></li>
+        </ul>
+      </div>
+
+      <div class="cap-col">
+        <h4>Cloud &amp; Hosting</h4>
+        <ul class="cap-list">
+          <li><span>AWS <em>— EC2, S3, RDS, IAM</em></span><span class="yr">since 2021</span></li>
+          <li>Google Cloud Platform<span class="yr">since 2022</span></li>
+          <li>DigitalOcean<span class="yr">since 2020</span></li>
+          <li>Shared / cPanel hosting<span class="yr">since 2020</span></li>
+        </ul>
+      </div>
+
+      <div class="cap-col">
+        <h4>Security &amp; Recovery</h4>
+        <ul class="cap-list">
+          <li><span>UFW &amp; iptables <em>— daily</em></span><span class="yr">since 2020</span></li>
+          <li>Fail2ban<span class="yr">since 2020</span></li>
+          <li>ClamAV<span class="yr">since 2021</span></li>
+          <li>SSL / Let's Encrypt<span class="yr">since 2020</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<div class="section-rule double"></div>
+<section id="method">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow"><span class="accent">No. 04</span> · The Method</div>
+      <h2 class="section-headline">How we shall <em>work</em>, in four movements.</h2>
+    </div>
+
+    <div class="method-list">
+
+      <article class="method-step">
+        <div class="method-meta">
+          <span class="chapter">I.</span>
+          Movement One — Discovery
+        </div>
+        <div class="method-body">
+          <h3>Read, <em>before</em> writing.</h3>
+          <p>Every engagement begins with a read-only investigation. I examine logs, current configurations, file integrity, running services. I do not touch anything that could change state until we have agreed on a plan. Surprises in production are the kind of surprise nobody enjoys.</p>
+        </div>
+      </article>
+
+      <article class="method-step">
+        <div class="method-meta">
+          <span class="chapter">II.</span>
+          Movement Two — Plan
+        </div>
+        <div class="method-body">
+          <h3>A <em>map</em>, before the territory.</h3>
+          <p>You receive a written scope: what I will do, in what order, with rollback steps for each phase. You always know what is happening on your server, and you always know how to undo it.</p>
+        </div>
+      </article>
+
+      <article class="method-step">
+        <div class="method-meta">
+          <span class="chapter">III.</span>
+          Movement Three — Build
+        </div>
+        <div class="method-body">
+          <h3>Quiet, <em>careful</em> execution.</h3>
+          <p>I implement the work — installing, configuring, hardening, migrating — and I document every meaningful change as I go. The goal is not just to fix the present problem but to leave the system better understood than I found it.</p>
+        </div>
+      </article>
+
+      <article class="method-step">
+        <div class="method-meta">
+          <span class="chapter">IV.</span>
+          Movement Four — Handoff
+        </div>
+        <div class="method-body">
+          <h3>The <em>last</em> mile.</h3>
+          <p>Verification, monitoring setup, and a written handoff so you (or your team) can take over with confidence. I stay on call for follow-up questions, and I prefer long-term relationships to one-off transactions.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- CORRESPONDENCE / CONTACT -->
+<section id="contact" class="corr">
+  <div class="container">
+    <div class="corr-eyebrow">No. 05 · Letters &amp; Correspondence</div>
+    <h2 class="corr-headline">Write to me, &amp; I shall <em>write</em> back.</h2>
+    <p class="corr-intro">
+      If your servers need attention, your site has been hit, or you simply want a steady hand on a coming project — I should be glad to hear from you. Choose any channel below.
+    </p>
+
+    <div class="corr-grid">
+      <a href="https://www.upwork.com/freelancers/~0153265022607b8fa1" target="_blank" rel="noopener" class="corr-item">
+        <svg class="corr-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.561 13.158c-1.102 0-2.135-.467-3.074-1.227l.228-1.076.008-.042c.207-1.143.849-3.06 2.839-3.06 1.492 0 2.703 1.212 2.703 2.703-.001 1.489-1.212 2.702-2.704 2.702zm0-8.14c-2.539 0-4.51 1.649-5.31 4.366-1.22-1.834-2.148-4.036-2.687-5.892H7.828v7.112c-.002 1.406-1.141 2.546-2.547 2.546-1.405 0-2.543-1.14-2.543-2.546V3.492H0v7.112c0 2.914 2.37 5.303 5.281 5.303 2.913 0 5.283-2.389 5.283-5.303v-1.19c.529 1.107 1.182 2.229 1.974 3.221l-1.673 7.873h2.797l1.213-5.71c1.063.679 2.285 1.109 3.686 1.109 3 0 5.439-2.452 5.439-5.45 0-3-2.439-5.439-5.439-5.439z"/></svg>
+        <div>
+          <div class="corr-label">— Upwork</div>
+          <div class="corr-handle">Find me at @rentu</div>
+        </div>
+        <span class="corr-arrow">↗</span>
+      </a>
+
+      <a href="https://www.fiverr.com/rentu07" target="_blank" rel="noopener" class="corr-item">
+        <svg class="corr-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M23.004 15.588a1.338 1.338 0 100-2.676 1.338 1.338 0 000 2.676zm-2.99 5.65h-2.738v-7.014h-4.847v7.014H9.69v-7.014H7.847v-2.244H9.69v-.81c0-2.121 1.348-3.42 3.523-3.42h2.215v2.244h-1.61c-.69 0-1.084.395-1.084 1.108v.878h6.527v9.258zM15.943 7.83a1.337 1.337 0 110-2.675 1.337 1.337 0 010 2.675zM3.523 11.98h2.736v9.258H3.523V11.98zm1.379-1.842a1.61 1.61 0 110-3.222 1.61 1.61 0 010 3.222z"/></svg>
+        <div>
+          <div class="corr-label">— Fiverr</div>
+          <div class="corr-handle">Find me at @rentu07</div>
+        </div>
+        <span class="corr-arrow">↗</span>
+      </a>
+
+      <a href="https://www.linkedin.com/in/masum-parves/" target="_blank" rel="noopener" class="corr-item">
+        <svg class="corr-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <div>
+          <div class="corr-label">— LinkedIn</div>
+          <div class="corr-handle">Find me at @masum-parves</div>
+        </div>
+        <span class="corr-arrow">↗</span>
+      </a>
+
+      <a href="https://www.facebook.com/mr.rentu1" target="_blank" rel="noopener" class="corr-item">
+        <svg class="corr-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        <div>
+          <div class="corr-label">— Facebook</div>
+          <div class="corr-handle">Find me at @mr.rentu1</div>
+        </div>
+        <span class="corr-arrow">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- COLOPHON / FOOTER -->
+<footer class="colophon">
+  <div class="container">
+    <div class="colophon-grid">
+      <div>
+        <div class="colophon-brand"><span class="accent">The</span> Parves <span class="accent">Register</span></div>
+        <p class="colophon-tagline">A working portfolio. Dhaka, BD.</p>
+      </div>
+      <div>
+        <h5>Sections</h5>
+        <ul>
+          <li><a href="#about">A Letter</a></li>
+          <li><a href="#services">Departments</a></li>
+          <li><a href="#capabilities">The Stack</a></li>
+          <li><a href="#method">The Method</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Correspond</h5>
+        <ul>
+          <li><a href="https://www.upwork.com/freelancers/~0153265022607b8fa1" target="_blank" rel="noopener">Upwork</a></li>
+          <li><a href="https://www.fiverr.com/rentu07" target="_blank" rel="noopener">Fiverr</a></li>
+          <li><a href="https://www.linkedin.com/in/masum-parves/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.facebook.com/mr.rentu1" target="_blank" rel="noopener">Facebook</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Colophon</h5>
+        <ul>
+          <li>Set in Fraunces</li>
+          <li>&amp; EB Garamond</li>
+          <li>&amp; JetBrains Mono</li>
+          <li>Printed in cream</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="colophon-bottom">
+      <span>© MMXXVI · Md Masum Parves Rentu · all rights reserved.</span>
+      <span><span class="accent">●</span> All systems operational · Dhaka, BD · v2.0</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
