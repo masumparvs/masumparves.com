@@ -844,12 +844,12 @@ section { padding: 96px 0; position: relative; }
     <div>Vol. IV · No. 02</div>
     <div class="center">— THE PARVES REGISTER —</div>
     <nav class="nav-mag">
-      <a href="#home">Home</a>
-      <a href="#about">Essay</a>
-      <a href="#services">Departments</a>
-      <a href="#capabilities">Stack</a>
-      <a href="#method">Method</a>
-      <a href="#contact">Letters</a>
+      <a href="/home">Home</a>
+      <a href="/about">Essay</a>
+      <a href="/services">Departments</a>
+      <a href="/capabilities">Stack</a>
+      <a href="/method">Method</a>
+      <a href="/contact">Letters</a>
     </nav>
   </div>
 </header>
@@ -1335,6 +1335,64 @@ section { padding: 96px 0; position: relative; }
     </div>
   </div>
 </footer>
+
+<script>
+/* Clean-URL routing for the single-page site.
+   Menu/links scroll smoothly and the address bar shows /home, /services, ...
+   (no "#"). Typing a URL like /services directly also lands on that section,
+   because a copy of this page is published at each of those paths. */
+(function () {
+  var sections = ['home', 'about', 'services', 'capabilities', 'method', 'contact'];
+
+  function pathToId(path) {
+    var seg = (path || '/').replace(/^\/+|\/+$/g, '').toLowerCase();
+    if (seg === '' || seg === 'index.html') return 'home';
+    return sections.indexOf(seg) !== -1 ? seg : null;
+  }
+  function idToPath(id) { return id === 'home' ? '/' : '/' + id; }
+
+  function scrollToId(id, smooth) {
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto' });
+  }
+
+  /* Intercept clicks on internal section links (both "/about" and legacy "#about") */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    var id = null;
+    if (href.charAt(0) === '#') id = href.slice(1);
+    else if (href.charAt(0) === '/') id = pathToId(href);
+    if (!id || sections.indexOf(id) === -1) return;
+    if (!document.getElementById(id)) return;
+    e.preventDefault();
+    scrollToId(id, true);
+    history.pushState(null, '', idToPath(id));
+  });
+
+  /* Direct load of /services (etc.) -> jump to that section */
+  window.addEventListener('load', function () {
+    var id = pathToId(location.pathname);
+    if (id && id !== 'home') scrollToId(id, false);
+  });
+
+  /* Keep the address bar in sync with the section in view while scrolling */
+  var t;
+  window.addEventListener('scroll', function () {
+    clearTimeout(t);
+    t = setTimeout(function () {
+      var current = 'home';
+      for (var i = 0; i < sections.length; i++) {
+        var el = document.getElementById(sections[i]);
+        if (el && el.getBoundingClientRect().top <= 120) current = sections[i];
+      }
+      var want = idToPath(current);
+      if (location.pathname !== want) history.replaceState(null, '', want);
+    }, 120);
+  }, { passive: true });
+})();
+</script>
 
 </body>
 </html>
